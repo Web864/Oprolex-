@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prolex product landing page</title>
+
+    <!-- Fonts/Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-dym/Y5v1N3gZKZl0rWk1gKqv+XgKEk6V5v8t4q6JtWcZk4n0nq9WwJ3Qk9q3a8Lx2iLq6E1I0s9xwEXQ7G3k5Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Embedded CSS (single-file build) -->
+    <style>
+      /* Reset & Base */
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        line-height: 1.6;
+        color: #222;
+        overflow-x: hidden; /* stop horizontal scroll */
+        background: #fff;
+      }
+      img { max-width: 100%; height: auto; display: block; }
+      h1, h2, h3 { margin: 0 0 .5rem; line-height: 1.2; }
+      p { margin: 0 0 1rem; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+
+      /* HERO background */
+      .body {
+        width: 100%;
+        height: 100vh;
+        background: url(./images/hero-bg-2.jpg) no-repeat center/cover;
+      }
+
+      /* NAVBAR */
+      .manebar { position: fixed; inset: 0 auto auto 0; width: 100%; background: #000; z-index: 1000; }
+      .cont { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem; }
+      .cont.container { padding-top: 1rem; padding-bottom: 1rem; }
+      .cont-img img { width: 140px; height: auto; cursor: pointer; }
+
+      .cont-right { display: flex; align-items: center; gap: 1rem; }
+      .cont-span { display: flex; align-items: center; gap: .25rem; position: relative; }
+      .cont-span .menu { color: #fff; padding: .5rem .8rem; border-radius: .4rem; cursor: pointer; display: inline-flex; align-items: center; gap: .35rem; }
+      .cont-span .menu:hover { color: #fff; text-decoration: underline; }
+
+      /* dropdown */
+      .home { position: relative; }
+      .home-drop { position: absolute; left: 0; top: calc(100% + .4rem); background: #1f2937; border-radius: .5rem; width: 12rem; display: none; box-shadow: 0 8px 24px rgba(0,0,0,.2); overflow: hidden; }
+      .home-drop span { display: block; padding: .8rem 1rem; color: #e5e7eb; }
+      .home-drop span:hover { background: #ef4444; color: #fff; }
+      .home:hover .home-drop { display: block; }
+
+      /* hamburger */
+      .hamburger { display: none; color: #fff; font-size: 1.5rem; cursor: pointer; padding: .5rem; border-radius: .4rem; }
+      .hamburger:focus { outline: 2px solid #ef4444; outline-offset: 2px; }
+
+      /* HERO content */
+      .main-content { position: relative; width: 100%; }
+      .main { color: #fff; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; padding: 8rem 1rem 2rem; }
+      .main .container { display: contents; }
+      .main1 { flex: 1 1 420px; padding: 1rem; }
+      .main1 h1 span { color: #dc2626; }
+      .main1 p { max-width: 52ch; }
+      .main-img { flex: 1 1 360px; text-align: center; }
+
+      /* CTA icons (kept minimal per original) */
+      .mn1 { display: flex; align-items: center; gap: .75rem; margin-top: 1.25rem; }
+      .mn11, .mn12, .mn13 { width: 3rem; height: 3rem; border-radius: 9999px; background: #fff; display: grid; place-items: center; }
+      .mn11 i { color: #111; }
+
+      /* FEATURES section */
+      .center { padding: 4rem 1rem; text-align: center; }
+      .cn1 { margin: 0 auto; max-width: 48rem; }
+      .cn11 span { color: #ef4444; }
+      .cn12 p { color: #4b5563; }
+      .cn-bx { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; }
+      .cn-bx > div { flex: 1 1 250px; max-width: 300px; padding: 1.5rem; background: #fff; border-radius: 1rem; box-shadow: 0 4px 18px rgba(0,0,0,.06); text-align: left; }
+      .cn-bx h1 { font-size: 1.25rem; text-transform: capitalize; margin-bottom: .5rem; }
+      .cn-bx p { color: #4b5563; }
+
+      /* SECTION cn3 */
+      .cn3 { background: #f4f4f4; }
+      .cn3 .container { display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; padding: 2rem 0; }
+      .cn31 { flex: 1 1 420px; }
+      .cn311 { font-size: clamp(1.5rem, 3vw + 1rem, 2.5rem); font-weight: 700; margin-bottom: .75rem; }
+      .cn311 span { color: #ef4444; }
+      .cn312 { color: #4b5563; margin-bottom: 1rem; }
+      .cn32 { flex: 1 1 360px; text-align: center; }
+
+      /* SECTION cn4 */
+      .cn4 .container { display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; padding: 2rem 0; }
+      .cn41 { flex: 1 1 300px; text-align: center; }
+      .cn42 { flex: 1 1 420px; }
+      .cn421 { font-size: 1.75rem; margin-bottom: .75rem; }
+      .cn421 span { color: #ef4444; }
+      .cn422 { color: #4b5563; }
+      .cn43 { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 1.25rem; }
+      .cn43 > div { display: flex; align-items: center; gap: .6rem; background: #fff; padding: .8rem 1rem; border-radius: .75rem; box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+      .cn4311 i { font-size: 1.25rem; color: #ef4444; }
+
+      /* SECTION cn5 */
+      .cn5 { background: #f4f4f4; text-align: center; }
+      .cn5 .container { padding: 2rem 0; }
+      .cn51 { font-size: clamp(1.4rem, 2vw + .8rem, 2rem); font-weight: 700; }
+      .cn51 span { color: #ef4444; }
+      .cn52 { color: #4b5563; margin-bottom: 1rem; }
+      .cn53 { max-width: 70rem; margin: 0 auto; }
+      .cn54 { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; margin-top: 1rem; }
+      .cn541, .cn542 { flex: 1 1 320px; max-width: 520px; background: #fff; border-radius: 1rem; padding: 1.25rem 1.5rem; box-shadow: 0 4px 18px rgba(0,0,0,.06); }
+      .cn5411, .cn5421 { color: #ef4444; font-size: 1.6rem; font-weight: 800; }
+      .cn5411 span, .cn5421 span { font-size: 2.2rem; }
+      .cn5412, .cn5422 { font-weight: 700; }
+      .cn5413, .cn5423 { color: #4b5563; }
+
+      /* SECTION cn6 */
+      .cn6 .container { display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; padding: 2rem 0; }
+      .cn61 { flex: 1 1 300px; text-align: center; }
+      .cn62 { flex: 1 1 480px; }
+      .cn621 { font-size: 2rem; margin-bottom: .5rem; }
+      .cn621 span { color: #ef4444; }
+      .cn622 { color: #4b5563; margin-bottom: 1rem; }
+      .cn623 { display: flex; flex-wrap: wrap; gap: 1rem 2rem; }
+      .cn6231, .cn6232 { flex: 1 1 280px; color: #6b7280; }
+      .cn623 h3 { color: #111827; font-size: 1.05rem; margin: .25rem 0; }
+
+      /* SECTION cn7 (Download app) */
+      .cn7 { background: url(./images/bg-image.jpg) center/cover no-repeat; }
+      .cn7 .overlay { background: linear-gradient(to right, rgba(0,0,0,.75), rgba(0,0,0,.4)); }
+      .cn7 .container { color: #fff; display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; padding: 3rem 0; }
+      .cn71 { flex: 1 1 420px; }
+      .cn711 h1 span { color: #ef4444; }
+      .cn712 { color: #e5e7eb; margin: .75rem 0 1.25rem; }
+      .store-buttons { display: flex; gap: 1rem; justify-content: center; }
+      .btn-store { display: inline-flex; align-items: center; gap: .6rem; padding: .75rem 1rem; border-radius: .8rem; background: #111827; color: #fff; font-weight: 600; border: 1px solid rgba(255,255,255,.12); text-decoration: none; }
+      .btn-store:hover { background: #ef4444; }
+      .cn72 { flex: 1 1 360px; text-align: center; }
+
+      /* UTILITIES */
+      .section { padding: 2rem 0; }
+
+      /* RESPONSIVE */
+      @media (max-width: 992px) {
+        .cont { flex-direction: column; align-items: flex-start; }
+      }
+      @media (max-width: 768px) {
+        .hamburger { display: block; }
+        .cont-right { width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
+        .cont-span { display: none; flex-direction: column; width: 100%; background: #0b0b0b; border-radius: .5rem; padding: .5rem; }
+        .cont-span.active { display: flex; }
+        .home-drop { position: static; width: 100%; box-shadow: none; margin-top: .25rem; }
+        .main { text-align: center; }
+        .cn43 { justify-content: center; }
+        .store-buttons { justify-content: center; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HERO background strip -->
+    <div class="body">
+         <div class="main-content">
+      <div class="manebar">
+        <div class="cont container">
+          <div class="cont-img">
+            <img src="./images/logo-white-red.png" alt="Prolex" />
+          </div>
+
+          <div class="cont-right">
+            <button class="hamburger" aria-label="Toggle navigation" title="Menu">
+              <i class="fa fa-bars"></i>
+            </button>
+
+            <div class="cont-span" role="navigation" aria-label="Primary">
+              <span class="menu home">Home <i class="fa fa-angle-down"></i>
+                <div class="home-drop" role="menu">
+                  <span role="menuitem">Demo Template 1</span>
+                  <span role="menuitem">Demo Template 2</span>
+                  <span role="menuitem">Demo Template 3</span>
+                  <span role="menuitem">Demo Template 4</span>
+                  <span role="menuitem">Demo Template 5</span>
+                  <span role="menuitem">Demo Template 6</span>
+                  <span role="menuitem">Demo Template 7</span>
+                </div>
+              </span>
+              <span class="menu">features</span>
+              <span class="menu">spec</span>
+              <span class="menu">Faq</span>
+              <span class="menu">Contact</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO MAIN -->
+      <section class="main">
+        <div class="container">
+          <div class="main1">
+            <div class="main11">
+              <h1><span>Colorful</span> Screen, Smart interactions</h1>
+            </div>
+            <div class="main12">
+              <p>Our design projects are fresh and simple and will benefit your business greatly. Learn more about our work!</p>
+            </div>
+            <div class="main13">
+              <div class="mn1">
+                <div class="mn11"><span><i class="fa fa-bullhorn"></i></span></div>
+                <div class="mn12"></div>
+                <div class="mn13"></div>
+              </div>
+            </div>
+          </div>
+          <div class="main-img">
+            <img src="./images/watch.png" alt="Prolex Watch" />
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURES CENTER -->
+      <section class="center">
+        <div class="container">
+          <div class="cn1">
+            <div class="cn11"><h1>Core Fetures for <span>smart</span> people</h1></div>
+            <div class="cn12"><p>Following reasons show advantages of adding ProLex to your lead pages, demos and checkouts</p></div>
+          </div>
+
+          <div class="cn-bx">
+            <div class="cn-bx1">
+              <div class="cn-bxa11"><h1>clean design</h1></div>
+              <div class="cn-bx12"><p>Increase sales by showing true dynamics of your website.</p></div>
+            </div>
+
+            <div class="cn-bx2">
+              <div class="cn-bxa21"><h1>Noification alert</h1></div>
+              <div class="cn-bx22"><p>Objectively actualize e-business mindshare via inexpensive.</p></div>
+            </div>
+
+            <div class="cn-bx3">
+              <div class="cn-bxa31"><h1>Secure Data</h1></div>
+              <div class="cn-bx32"><p>Build your online store’s trust using Social Proof &amp; Urgency.</p></div>
+            </div>
+
+            <div class="cn-bx4">
+              <div class="cn-bxa41"><h1>User Live Chat</h1></div>
+              <div class="cn-bx42"><p>Realize importance of social proof in customer’s purchase decision.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION cn3 -->
+      <section class="cn3">
+        <div class="container">
+          <div class="cn31">
+            <div class="cn311">Go for a <span>Run...</span> and leave your phone at home.</div>
+            <div class="cn312">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis similique reiciendis maxime veritatis quibusdam labore, quidem rem iure expedita fugit quas, a voluptate obcaecati recusandae facere vero aliquid non! Veritatis repellendus, laborum nam repudiandae facere, numquam obcaecati excepturi minima quae enim voluptatibus.</div>
+            <div class="cn312">Soluta minima in ut tempore aut iste vel! Quick has all the right tools in order to make your website building process a breeze and automatize your time-consuming tasks in your development workflow.</div>
+            <div class="cn312">Monotonectally coordinate proactive quality vectors rather than high-payoff processes. Interactively negotiate synergistic innovation before global materials sustainable.</div>
+          </div>
+          <div class="cn32"><img src="./images/watch-5.png" alt="Run with Prolex" /></div>
+        </div>
+      </section>
+
+      <!-- SECTION cn4 -->
+      <section class="cn4">
+        <div class="container">
+          <div class="cn41"><img src="./images/single-watch.png" alt="Prolex single" /></div>
+          <div class="cn42">
+            <div class="cn421"><h3> Key <span>Features</span> of Prolex</h3></div>
+            <div class="cn422">Synergistically provide access to pandemic testing procedures via standards compliant interfaces. Assertively underwhelm enabled technologies vis-a-vis B2B.<br /><br />Credibly productize cross-platform growth strategies via functionalized relationships. Efficiently reinvent cross-media infomediaries through mission-critical manufactured products conveniently</div>
+            <div class="cn43">
+              <div class="cn431">
+                <div class="cn4311"><i class="fa fa-heartbeat"></i></div>
+                <div class="cn4312">Heart monitor</div>
+              </div>
+              <div class="cn432">
+                <div class="cn4321"><i class="far fa-heart"></i></div>
+                <div class="cn4322">Blood Pressure</div>
+              </div>
+              <div class="cn433">
+                <div class="cn4331"><i class="far fa-bell"></i></div>
+                <div class="cn4332">Alarm Alert</div>
+              </div>
+              <div class="cn434">
+                <div class="cn4341"><i class="fas fa-fingerprint"></i></div>
+                <div class="cn4342">Fingerprint Lock</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION cn5 -->
+      <section class="cn5">
+        <div class="container">
+          <div class="cn51">Up to <span>10 Days</span> of Battery Life</div>
+          <div class="cn52">35-hour GPS continuous running mode</div>
+          <div class="cn53"><div class="cn53-img"><img src="./images/watch-floating-view.png" alt="floating watch" /></div></div>
+          <div class="cn54">
+            <div class="cn541">
+              <div class="cn5411">Up to <span>10</span> days</div>
+              <div class="cn5412">Battery life</div>
+              <div class="cn5413">Seamlessly brand principle-centered sources rather than mission critical human capital.</div>
+            </div>
+            <div class="cn542">
+              <div class="cn5421"><span>45</span> hours</div>
+              <div class="cn5422">GPS running mode</div>
+              <div class="cn5423">Synergistically enhance team driven potentialities before extensive e-markets globally.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION cn6 -->
+      <section class="cn6">
+        <div class="container">
+          <div class="cn61"><div class="cn61-img"><img src="./images/single-watch.png" alt="watch specs" /></div></div>
+          <div class="cn62">
+            <div class="cn621"><h2><span>Technical</span> Specs</h2></div>
+            <div class="cn622">Objectively deliver professional value with diverse web-readiness. Collaboratively transition wireless customer service without goal.</div>
+            <div class="cn623">
+              <div class="cn6231">
+                <div class="cn62311">
+                  <div class="cn623111"><i class="far fa-image"></i></div>
+                  <div class="cn623112"><h3>Camera Available</h3></div>
+                  <div class="cn623113">Uniquely seize team building expertise and future-proof process improvements.</div>
+                </div>
+                <div class="cn62312">
+                  <div class="cn623121"><i class="far fa-sun"></i></div>
+                  <div class="cn623122"><h3>Readable in Sunlight</h3></div>
+                  <div class="cn623123">Monotonectally coordinate proactive quality vectors rather than high-payoff processes.</div>
+                </div>
+                <div class="cn62313">
+                  <div class="cn623131"><i class="fas fa-video"></i></div>
+                  <div class="cn623132"><h3>Advance Video</h3></div>
+                  <div class="cn623133">Interactively negotiate synergistic innovation before global materials sustainable</div>
+                </div>
+              </div>
+              <div class="cn6232">
+                <div class="cn62321">
+                  <div class="cn623211"><i class="fas fa-leaf"></i></div>
+                  <div class="cn623212"><h3>Eco Friendly</h3></div>
+                  <div class="cn623213">Intrinsicly network long-term high-impact intellectual capital before user friendly</div>
+                </div>
+                <div class="cn62322">
+                  <div class="cn623221"><i class="far fa-clock"></i></div>
+                  <div class="cn623222"><h3>30 Days Battery Time</h3></div>
+                  <div class="cn623223">Energistically fabricate extensible web-readiness rather than vertical ideas visualize.</div>
+                </div>
+                <div class="cn62323">
+                  <div class="cn623231"><i class="fas fa-wifi"></i></div>
+                  <div class="cn623232"><h3>Wifi Enable</h3></div>
+                  <div class="cn623233">Continually engineer extensible deliverables rather than efficient potentialities</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION cn7 (Download) -->
+      <section class="cn7">
+        <div class="overlay">
+          <div class="container">
+            <div class="cn71">
+              <div class="cn711"><h1><span>Download</span> our app</h1></div>
+              <div class="cn712">Objectively deliver professional value with diverse web-readiness. Collaboratively transition wireless customer service without goal-oriented catalysts for change.</div>
+              <div class="store-buttons">
+                <a href="#" class="btn-store" aria-label="Get it on Google Play"><i class="fab fa-google-play"></i> Google Play</a>
+                <a href="#" class="btn-store" aria-label="Download on the App Store"><i class="fab fa-apple"></i> App Store</a>
+              </div>
+            </div>
+            <div class="cn72">
+              <div class="cn72-img"><img src="./images/download-app.png" alt="Download app" /></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    </div>
+
+    <!-- NAVBAR -->
+   
+    <!-- Minimal JS for hamburger toggle -->
+    <script>
+      (function() {
+        const burger = document.querySelector('.hamburger');
+        const menu = document.querySelector('.cont-span');
+        if (burger && menu) {
+          burger.addEventListener('click', () => {
+            menu.classList.toggle('active');
+            burger.setAttribute('aria-expanded', menu.classList.contains('active'));
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
